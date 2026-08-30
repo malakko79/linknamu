@@ -52,7 +52,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
       aria-pressed={isDark}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 shadow-sm transition-colors hover:bg-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-white/55 text-stone-600 shadow-sm backdrop-blur-xl transition-colors hover:bg-white/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 dark:border-white/10 dark:bg-white/[0.08] dark:text-stone-200 dark:hover:bg-white/[0.14]"
     >
       {isDark ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
     </button>

@@ -3,20 +3,12 @@
 import { getLinkMeta } from "./link-meta";
 import type { LinkItem } from "@/data/profile";
 
-const CLICKS_STORAGE_KEY = "linknamu-clicks";
+type LinkCardProps = LinkItem & {
+  count: number;
+  onClick: (id: string) => void;
+};
 
-function recordClick(id: string) {
-  try {
-    const raw = window.localStorage.getItem(CLICKS_STORAGE_KEY);
-    const counts = raw ? (JSON.parse(raw) as Record<string, number>) : {};
-    counts[id] = (counts[id] ?? 0) + 1;
-    window.localStorage.setItem(CLICKS_STORAGE_KEY, JSON.stringify(counts));
-  } catch {
-    // 통계 집계 실패는 사용자 페이지 동작에 영향을 주지 않아야 한다.
-  }
-}
-
-export default function LinkCard({ id, title, url, description }: LinkItem) {
+export default function LinkCard({ id, title, url, description, count, onClick }: LinkCardProps) {
   const { Icon, badgeClass } = getLinkMeta(url);
 
   return (
@@ -24,8 +16,8 @@ export default function LinkCard({ id, title, url, description }: LinkItem) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => recordClick(id)}
-      className="group flex min-h-16 items-center gap-4 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 dark:border-zinc-800 dark:bg-zinc-900"
+      onClick={() => onClick(id)}
+      className="group flex min-h-16 items-center gap-4 rounded-3xl border border-white/50 bg-white/55 px-5 py-4 shadow-[0_6px_20px_-10px_rgba(154,82,25,0.2)] backdrop-blur-xl transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white/70 hover:shadow-[0_10px_26px_-10px_rgba(154,82,25,0.28)] active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.1]"
     >
       <span
         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${badgeClass}`}
@@ -33,21 +25,22 @@ export default function LinkCard({ id, title, url, description }: LinkItem) {
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
       <span className="min-w-0 flex-1 text-left">
-        <span className="block truncate font-medium text-zinc-900 dark:text-zinc-50">
+        <span className="block truncate font-medium text-stone-800 dark:text-stone-50">
           {title}
         </span>
         {description && (
-          <span className="block truncate text-xs text-zinc-500 dark:text-zinc-400">
+          <span className="block truncate text-xs text-stone-500 dark:text-stone-400">
             {description}
           </span>
         )}
       </span>
+      <span className="shrink-0 text-xs text-stone-400 dark:text-stone-500">{count}회</span>
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         strokeWidth={1.8}
-        className="h-4 w-4 shrink-0 text-zinc-300 transition-transform group-hover:translate-x-0.5 dark:text-zinc-600"
+        className="h-4 w-4 shrink-0 text-stone-300 transition-transform group-hover:translate-x-0.5 dark:text-stone-600"
         aria-hidden="true"
       >
         <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

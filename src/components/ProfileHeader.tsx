@@ -4,8 +4,8 @@ export default function ProfileHeader({ profile }: { profile: Profile }) {
   const initial = profile.name.trim().charAt(0) || "L";
 
   return (
-    <header className="flex flex-col items-center gap-3 text-center">
-      <div className="flex h-48 w-48 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 text-6xl font-semibold text-white shadow-md ring-4 ring-white dark:ring-zinc-900">
+    <header className="flex flex-col items-center gap-4 text-center">
+      <div className="flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-orange-200 to-amber-400 text-5xl font-semibold text-white shadow-[0_14px_30px_-10px_rgba(154,82,25,0.4),0_4px_12px_-4px_rgba(154,82,25,0.22)] ring-[3px] ring-white/80 dark:ring-white/10 sm:h-40 sm:w-40">
         {profile.avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -18,11 +18,11 @@ export default function ProfileHeader({ profile }: { profile: Profile }) {
         )}
       </div>
       <div>
-        <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-xl font-bold tracking-tight text-stone-800 dark:text-stone-50">
           {profile.name || "이름을 입력해주세요"}
         </h1>
         {profile.bio && (
-          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{profile.bio}</p>
+          <p className="mt-1.5 text-sm text-stone-500 dark:text-stone-400">{profile.bio}</p>
         )}
       </div>
     </header>
